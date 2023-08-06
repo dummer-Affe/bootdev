@@ -37,7 +37,7 @@ public class TwoStepVerService {
           userRepo.save(user);
           SimpleMailMessage msg = new SimpleMailMessage();
           msg.setFrom("fromemail@gmail.com"); // input the senders email ID
-          msg.setTo("turanlibrahimozan@gmail.com");
+          msg.setTo(user.getEmail());
 
           msg.setSubject("Pass It 2FA");
           msg.setText("Hello, " +user.getEmail() + "\n\n" +"Your Login OTP :" + randomPIN + "\n\nPlease Verify. \n\n"+"Best Regards \n\n"+"Jahnavi");
