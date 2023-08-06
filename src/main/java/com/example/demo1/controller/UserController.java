@@ -32,11 +32,22 @@ public class UserController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/public/add")
-    public Map<String,String> addUserByUser(@RequestBody UserInfo user){
-        userService.addUserByUser(user);
+    public ResponseEntity addUserByUser(@RequestBody UserInfo user){
         Map<String, String> response = new HashMap<>();
-        response.put("Status", "Saved");
-        return response;
+        try {
+            userService.addUserByUser(user);
+            response.put("data","true");
+            response.put("status","success");
+            response.put("message","success");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            response.put("data","false");
+            response.put("status","error");
+            response.put("message",e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/user/checkOtp")
