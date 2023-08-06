@@ -39,7 +39,7 @@ public class UserController {
         return response;
     }
 
-    @GetMapping("/user/checkOtp")
+    @PostMapping("/user/checkOtp")
     public ResponseEntity checkUserOtp(@RequestBody OtpCheck credentials){
        int validationOtp = userService.getUserOtp(credentials.getEmail());
        int givenOtp = credentials.getOtp();
@@ -57,7 +57,7 @@ public class UserController {
 
 
 
-    @GetMapping("/public/login")
+    @PostMapping("/public/login")
     public ResponseEntity AuthAndGenerateToken(@RequestBody AuthRequest authRequest){
         Map<String, Object> response = new HashMap<>();
         try {
