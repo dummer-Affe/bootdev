@@ -34,12 +34,21 @@ public class UserController {
     @PostMapping("/public/add")
     public ResponseEntity addUserByUser(@RequestBody UserInfo user){
         Map<String, String> response = new HashMap<>();
+
         try {
-            userService.addUserByUser(user);
-            response.put("data","true");
-            response.put("status","success");
-            response.put("message","success");
-            return new ResponseEntity<>(response, HttpStatus.OK);
+
+            if(userService.addUserByUser(user)){
+                response.put("data","true");
+                response.put("status","success");
+                response.put("message","success");
+                return new ResponseEntity<>(response, HttpStatus.OK);
+            }
+            else{
+                response.put("data","false");
+                response.put("status","error");
+                response.put("message","User Already Exist");
+                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);}
+
         }
         catch (Exception e)
         {

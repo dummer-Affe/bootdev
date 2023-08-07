@@ -15,10 +15,19 @@ public class UserService {
 
     @Autowired
     private BCryptPasswordEncoder encoder;
-    public void addUserByUser (UserInfo user){
-        user.setPassword(encoder.encode(user.getPassword()));
-        repository.save(user);
+
+    public boolean addUserByUser (UserInfo user){
+        Optional<UserInfo> tempUser = repository.findByEmail(user.getEmail());
+        if(tempUser.isPresent()){
+            return false;
+        }
+        else{
+            user.setPassword(encoder.encode(user.getPassword()));
+            repository.save(user);
+            return true;
+        }
     }
+
     public int getUserOtp (String email){
         Optional<UserInfo> user = repository.findByEmail(email);
         if ( user.isPresent()){
