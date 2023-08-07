@@ -61,15 +61,19 @@ public class UserController {
 
     @PostMapping("/user/checkOtp")
     public ResponseEntity checkUserOtp(@RequestBody OtpCheck credentials){
-       int validationOtp = userService.getUserOtp(credentials.getEmail());
-       int givenOtp = credentials.getOtp();
+        int validationOtp = userService.getUserOtp(credentials.getEmail());
+        int givenOtp = credentials.getOtp();
         Map<String, String> response = new HashMap<>();
         if(givenOtp == validationOtp ){
-            response.put("data", "true");
+            response.put("data","true");
+            response.put("status","success");
+            response.put("message","success");
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
         else {
-            response.put("data", "error");
+            response.put("data","false");
+            response.put("status","error");
+            response.put("message","Invalid Otp");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
@@ -86,13 +90,13 @@ public class UserController {
                     new UsernamePasswordAuthenticationToken(
                             authRequest.getEmail(),
                             authRequest.getPassword()));
-                    System.out.println("kekw3");
-                    response.put("data","true");
-                    response.put("status","success");
-                    response.put("message","success");
-                     twoStepVerService.generateOtp(
-                         userRepo.findByEmail(authRequest.getEmail()).get());
-                    return new ResponseEntity<>(response, HttpStatus.OK);
+            System.out.println("kekw3");
+            response.put("data","true");
+            response.put("status","success");
+            response.put("message","success");
+            twoStepVerService.generateOtp(
+                    userRepo.findByEmail(authRequest.getEmail()).get());
+            return new ResponseEntity<>(response, HttpStatus.OK);
 
         }
         catch(Exception e) {
