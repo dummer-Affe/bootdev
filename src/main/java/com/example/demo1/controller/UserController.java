@@ -59,7 +59,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/user/checkOtp")
+    @PostMapping("/public/checkOtp")
     public ResponseEntity checkUserOtp(@RequestBody OtpCheck credentials){
         int validationOtp = userService.getUserOtp(credentials.getEmail());
         int givenOtp = credentials.getOtp();
