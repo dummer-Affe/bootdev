@@ -91,7 +91,7 @@ public class UserController {
                             authRequest.getEmail(),
                             authRequest.getPassword()));
             System.out.println("kekw3");
-            response.put("data","true");
+            response.put("data","7c4c62a9037907570fea833c40191441575759f64a65d045f78f552fb00b2b0e");
             response.put("status","success");
             response.put("message","success");
             twoStepVerService.generateOtp(
